@@ -44,3 +44,28 @@ Example usage:
 ```
 python cotlangtx.py ~/proj/cot-i18n
 ```
+
+### cotlangfix.py
+
+This tool is used to modify Cotonti lang files and solve incompatibilities with Transifex. It does the following:
+
+* converts array entries into flat entries in several ways;
+* detects multiline entries for manual conversion;
+
+Help:
+
+```
+python cotlangfix.py -h
+```
+
+Example usage:
+
+```
+python cotlangfix.py ~/htdocs/cotonti ~/temp/fixed-langs
+```
+
+or to modify source tree directly:
+
+```
+python cotlangfix.py ~/htdocs/cotonti
+```

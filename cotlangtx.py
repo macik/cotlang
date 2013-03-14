@@ -10,6 +10,10 @@ def grab_lang_resources(path):
 
     registered_resources = []
 
+    print """[main]
+host = https://www.transifex.com
+"""
+
     for root, dirs, files in os.walk(path):
         langfiles = fnmatch.filter(files, '*.en.lang.php')
         subdir = root.replace(os.path.join(path, ''), '').replace('\\', '/')

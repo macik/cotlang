@@ -6,6 +6,7 @@ import re
 
 # Regexes for problem detection
 has_array = re.compile(r'\$L\[["\']\w+["\']\]\s*=\s*array\(', re.I)
+has_array_ignore = re.compile(r'\$L\[["\']\w+["\']\]\s*=\s*array\([\)\$]', re.I)
 has_ls_array = re.compile(r'\$Ls\[["\']\w+["\']\]\s*=\s*array\(', re.I)
 has_ext_cat = re.compile(r'\$L\[["\']ext_cat["\']\]\[')
 has_multi_index = re.compile(r'\$\w+\[["\']\w+["\']\]\[')
@@ -24,7 +25,7 @@ def detect_problems(file_name):
     with open(file_name) as f:
         line_num = 1
         for line in f:
-            if has_array.search(line):
+            if has_array.search(line) and not has_array_ignore.search(line):
                 problem_count += 1
 
             if has_ls_array.search(line):
@@ -85,7 +86,7 @@ def fix_lang_file(file_name, dest_name):
                     print "Please join params array manually in %s at line %d:\n%s"\
                           % (file_name, line_num, line)
 
-            elif has_array.search(line):
+            elif has_array.search(line) and not has_array_ignore.search(line):
                 # Array entry needs fixing
 
                 m = fix_array1.search(line)
